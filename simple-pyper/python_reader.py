@@ -9,25 +9,19 @@ class pyReader(object):
     def print_file(self):
         print(self.file.read())
 
-
     def count_pattern_in_def(self, pattern):
         self.file.seek(0)
         content = self.file.read()
-        defs = re.findall(r'def.*\)',content)
+        defs = re.findall(r'def.*\)', content)
         count = 0
+        detailed_list = []
         for parameter in defs:
             matches = re.findall(pattern, parameter)
             count += len(matches)
+            detailed_list = detailed_list + (matches)
 
-        return (len(defs),count)
-
-# 创建一个pyReader对象
-reader = pyReader(file_path='/Users/chen_yiru/PycharmProjects/simple-pyper/example_pipeline/tsv2csv.py')
-
-# 调用print_file方法
-reader.print_file()
+        return (len(defs), count, detailed_list)
 
 
-count = reader.count_pattern_in_def('inputas')
-print(f" {count} 次")
+
 
